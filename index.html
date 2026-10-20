@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allyson & Jade Jai — 1 Ano de Amor</title>
+  <meta name="description" content="Celebrando 365 dias da nossa história: Allyson e Jade Jai. 21/10/2025 – 21/10/2026.">
+  <meta name="theme-color" content="#FBF8F3">
+
+  <!-- Google Fonts: Cormorant Garamond (Serifada Editorial) & Plus Jakarta Sans (Sans Limpa) & Caveat (Caligrafia Polaroid) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Link de Acessibilidade -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Canvas de Pétalas Sutil ao Fundo -->
+  <canvas id="petals-canvas" aria-hidden="true"></canvas>
+
+  <!-- Navegação Superior Discreta -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="brand-monogram" aria-label="Início - Allyson e Jade Jai">
+        <span data-bind="groomInitial">A</span>
+        <span class="ampersand">&amp;</span>
+        <span data-bind="brideInitial">J</span>
+      </a>
+      <nav class="site-nav" aria-label="Seções da nossa história">
+        <a href="#contador">O Tempo</a>
+        <a href="#historia">Nossa História</a>
+        <a href="#galeria">Memórias</a>
+        <a href="#motivos">Por que te amo</a>
+        <a href="#carta">Carta</a>
+      </nav>
+      <div class="header-date" data-bind="shortDates">21.10.25 — 21.10.26</div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-text-col reveal-up">
+          <div class="eyebrow-badge">
+            <span class="badge-dot"></span>
+            <span data-bind="heroBadge">365 dias ao seu lado • 1 ano juntos</span>
+          </div>
+          <h1 class="hero-title">
+            <span data-bind="myName">Allyson</span>
+            <span class="hero-amp">&amp;</span>
+            <span data-bind="herName">Jade Jai</span>
+          </h1>
+          <p class="hero-subtitle" data-bind="heroSubtitle">
+            Desde aquele 21 de outubro às 06h30 da manhã, o meu lugar favorito no mundo passou a ter o seu abraço, o seu riso e a paz de caminhar com você.
+          </p>
+          <div class="hero-actions">
+            <a href="#historia" class="btn-primary">
+              <span>Reviver nossa jornada</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+              </svg>
+            </a>
+            <a href="#carta" class="btn-secondary">Ler minha carta</a>
+          </div>
+        </div>
+
+        <div class="hero-polaroid-col reveal-up" style="--delay: 0.18s;">
+          <div class="polaroid-wrapper hero-polaroid" id="hero-photo-slot">
+            <!-- Renderizado dinamicamente pelo app.js a partir do CONFIG.hero.photo -->
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">Role com carinho</span>
+      </div>
+    </section>
+
+    <!-- 2. CONTADOR AO VIVO DO TEMPO JUNTOS -->
+    <section id="contador" class="counter-section">
+      <div class="container">
+        <div class="counter-card reveal-up">
+          <div class="counter-header">
+            <span class="section-tag">Desde 21 de outubro de 2025 às 06:30</span>
+            <h2 class="section-title">Cada segundo construindo nós dois</h2>
+            <p class="counter-lead" data-bind="counterSubtitle">
+              O relógio nunca para, e a cada instante que passa eu tenho ainda mais certeza de que escolher você foi a decisão mais bonita da minha vida.
+            </p>
+          </div>
+
+          <div class="counter-grid" role="timer" aria-live="polite" aria-atomic="true">
+            <div class="counter-unit">
+              <span class="counter-value" id="cnt-months">12</span>
+              <span class="counter-label" id="lbl-months">Meses</span>
+            </div>
+            <div class="counter-unit">
+              <span class="counter-value" id="cnt-days">00</span>
+              <span class="counter-label" id="lbl-days">Dias</span>
+            </div>
+            <div class="counter-unit">
+              <span class="counter-value" id="cnt-hours">00</span>
+              <span class="counter-label" id="lbl-hours">Horas</span>
+            </div>
+            <div class="counter-unit">
+              <span class="counter-value" id="cnt-minutes">00</span>
+              <span class="counter-label" id="lbl-minutes">Minutos</span>
+            </div>
+            <div class="counter-unit counter-unit-accent">
+              <span class="counter-value" id="cnt-seconds">00</span>
+              <span class="counter-label" id="lbl-seconds">Segundos</span>
+            </div>
+          </div>
+
+          <div class="counter-footer">
+            <div class="total-days-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              <span id="total-summary-text">Calculando nossa história...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. LINHA DO TEMPO DA NOSSA HISTÓRIA -->
+    <section id="historia" class="timeline-section">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">Capítulo por Capítulo</span>
+          <h2 class="section-title">A linha do tempo da nossa história</h2>
+          <p class="section-subtitle">
+            Do primeiro olhar até completarmos nosso primeiro ano. Os dias em que o comum virou inesquecível só porque você estava lá.
+          </p>
+        </div>
+
+        <div class="timeline-wrapper">
+          <div class="timeline-line" aria-hidden="true"></div>
+          <div id="timeline-container" class="timeline-items">
+            <!-- Renderizado dinamicamente pelo app.js (CONFIG.timeline) -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. GALERIA DE FOTOS (MASONRY / POLAROID + LIGHTBOX) -->
+    <section id="galeria" class="gallery-section">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">Nossos Retratos</span>
+          <h2 class="section-title">Pequenos eternos instantes</h2>
+          <p class="section-subtitle">
+            Toque em qualquer polaroid para ampliar e reviver a memória daquele dia.
+          </p>
+        </div>
+
+        <div id="gallery-container" class="gallery-masonry">
+          <!-- Renderizado dinamicamente pelo app.js (CONFIG.gallery) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. MOTIVOS PELOS QUAIS EU TE AMO -->
+    <section id="motivos" class="reasons-section">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">Detalhes que me encantam</span>
+          <h2 class="section-title">Motivos pelos quais eu te amo</h2>
+          <p class="section-subtitle">
+            Se eu tentasse listar tudo, faltaria página. Mas aqui estão algumas das coisas que fazem meu coração sorrir todo dia por ser seu.
+          </p>
+        </div>
+
+        <div id="reasons-container" class="reasons-grid">
+          <!-- Renderizado dinamicamente pelo app.js (CONFIG.reasons) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CARTA DE AMOR EM DESTAQUE -->
+    <section id="carta" class="letter-section">
+      <div class="container">
+        <div class="letter-paper reveal-up">
+          <div class="letter-wax-seal" aria-hidden="true">
+            <span>A&amp;J</span>
+          </div>
+
+          <div class="letter-top-meta">
+            <span class="letter-location" data-bind="letterDatePlace">21 de Outubro de 2026 • Nosso 1º Ano</span>
+            <button type="button" id="btn-replay-letter" class="btn-text-action" aria-label="Alternar efeito de escrita da carta">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+              <span id="letter-toggle-label">Ler com efeito de escrita</span>
+            </button>
+          </div>
+
+          <h2 class="letter-salutation" data-bind="letterGreeting">Minha querida Jade Jai,</h2>
+
+          <div id="letter-body" class="letter-content" aria-live="polite">
+            <!-- Parágrafos renderizados pelo app.js (CONFIG.letter) -->
+          </div>
+
+          <div class="letter-signature-block">
+            <p class="letter-closing" data-bind="letterClosing">Com todo o meu amor, hoje e sempre,</p>
+            <p class="letter-signature" data-bind="letterSignature">Allyson</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. PROMESSA PARA O PRÓXIMO ANO & CORAÇÃO INTERATIVO -->
+    <section id="promessa" class="promise-section">
+      <div class="container">
+        <div class="promise-card reveal-up">
+          <div class="heart-interactive-wrap">
+            <button type="button" id="heart-pulse-btn" class="heart-pulse-btn" aria-label="Enviar carinho — clique para espalhar corações">
+              <svg class="heart-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              <span class="heart-ring ring-1" aria-hidden="true"></span>
+              <span class="heart-ring ring-2" aria-hidden="true"></span>
+            </button>
+            <span class="heart-hint" id="heart-counter-hint">Toque no coração para celebrar nosso amor</span>
+          </div>
+
+          <span class="section-tag">21.10.2025 → Para Sempre</span>
+          <h2 class="promise-title" data-bind="promiseTitle">Minha promessa para o nosso próximo ano</h2>
+          <p class="promise-text" data-bind="promiseText">
+            Que este primeiro ano seja apenas o prólogo da nossa história. Eu prometo continuar segurando a sua mão nos dias de sol e sendo o seu abrigo nos dias de chuva. Prometo ouvir os seus sonhos, rir das nossas bobeiras, aprender com você e te amar com a mesma ternura das 06h30 daquela manhã em que tudo começou.
+          </p>
+
+          <div class="promise-signature">
+            <span>Feliz 1 ano de namoro, meu amor.</span>
+            <strong>Allyson &amp; Jade Jai</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Feito com todo carinho por <strong data-bind="myName">Allyson</strong> para <strong data-bind="herName">Jade Jai</strong></p>
+      <p class="footer-dates">21 de Outubro de 2025 • 21 de Outubro de 2026</p>
+    </div>
+  </footer>
+
+  <!-- BOTÃO FLUTUANTE DE MÚSICA (Sem Autoplay, discreto) -->
+  <div class="music-player-widget">
+    <audio id="bg-audio" preload="metadata" loop></audio>
+    <button type="button" id="music-toggle-btn" class="music-btn" aria-pressed="false" aria-label="Tocar nossa música de fundo">
+      <span class="music-bars" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span class="music-label" id="music-btn-text">Nossa Música</span>
+    </button>
+  </div>
+
+  <!-- LIGHTBOX MODAL PARA A GALERIA E FOTOS -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Visualização ampliada da foto">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Fechar foto (Esc)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Foto anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Próxima foto">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="lightbox-content">
+      <div class="lightbox-polaroid">
+        <div class="lightbox-visual-stage" id="lightbox-stage">
+          <!-- Imagem ou Placeholder injetado aqui -->
+        </div>
+        <div class="lightbox-caption-bar">
+          <span class="lightbox-date" id="lightbox-date"></span>
+          <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
