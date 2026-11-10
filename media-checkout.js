@@ -114,7 +114,7 @@
       pay.disabled = true;
       try {
         await loadWidget();
-        if (!session && !proof) throw new Error("Marque a verificação de segurança");
+        if (filesFromForm().length && !session && !proof) throw new Error("Marque a verificação de segurança");
         const config = structuredClone(currentConfig);
         const files = filesFromForm();
         const uploaded = await uploadFiles(files);
@@ -122,8 +122,11 @@
         if (/data:image\/|blob:/i.test(JSON.stringify(config))) {
           throw new Error("Selecione novamente as fotos arrastadas para os campos de arquivo");
         }
-        // Não efetuar pagamento antes de associar e verificar os arquivos na API de checkout.
-        throw new Error("Arquivos enviados. A vinculação segura ao pedido ainda está em implementação; pagamento não iniciado.");
+        const checkout = await api("/api/checkout", {
+          plan: selectedPlanKey, config, ...(uploaded.length ? { upload_session: session } : {}),
+        });
+        if (!checkout.checkout_url) throw new Error("Pagamento indisponível");
+        window.location.assign(checkout.checkout_url);
       } catch (error) {
         alert(error.message || "Não foi possível preparar os arquivos");
       } finally {
