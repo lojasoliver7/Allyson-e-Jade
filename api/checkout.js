@@ -2,7 +2,6 @@ import { getPlan, normalizeSlug, assertCheckoutConfig } from "./_lib/commerce.js
 import { supabase } from "./_lib/supabase.js";
 
 const BASE = "https://sandbox.api.pagseguro.com";
-const noStore = { "Cache-Control": "no-store" };
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") {
@@ -43,7 +42,7 @@ export default async function handler(req, res) {
         reference_id: orderId,
         items: [{ reference_id: planKey, name: "Página romântica " + planKey, quantity: 1, unit_amount: plan.amountCents }],
         payment_methods: [{ type: "PIX" }, { type: "CREDIT_CARD" }, { type: "DEBIT_CARD" }],
-        redirect_url: origin + "/vendas.html?checkout=retorno",
+        return_url: origin + "/vendas.html?checkout=retorno",
         payment_notification_urls: [origin + "/api/pagbank-webhook"],
       }),
     });
@@ -55,7 +54,7 @@ export default async function handler(req, res) {
       method: "PATCH", body: { provider_order_id: data.id }, prefer: "return=minimal",
     });
     const payUrl = data.links?.find(link => link.rel === "PAY")?.href;
-    if (!payUrl || !/^https:\/\/[^/]*pagseguro\.uol\.com\.br\//.test(payUrl)) {
+    if (!payUrl || !/^https:\/\/(?:[a-z0-9-]+\.)*(?:pagseguro\.uol\.com\.br|pagbank\.com\.br)\//i.test(payUrl)) {
       return res.status(502).json({ error: "Link de pagamento inválido" });
     }
     return res.status(200).setHeader("Cache-Control", "no-store").json({ checkout_url: payUrl, order_id: orderId });
