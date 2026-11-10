@@ -126,7 +126,8 @@
           plan: selectedPlanKey, config, ...(uploaded.length ? { upload_session: session } : {}),
         });
         if (!checkout.checkout_url) throw new Error("Pagamento indisponível");
-        window.location.assign(checkout.checkout_url);
+        // Ainda não redirecionar: a rota pública e o webhook precisam de validação ponta a ponta.
+        throw new Error("Pedido preparado no Sandbox. Pagamento bloqueado até a publicação automática estar pronta.");
       } catch (error) {
         alert(error.message || "Não foi possível preparar os arquivos");
       } finally {
