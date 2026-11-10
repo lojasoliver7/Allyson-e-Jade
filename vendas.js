@@ -723,7 +723,7 @@ function initModalCheckout() {
     // Gera URL limpa e amigável
     const slug1 = sanitizeSlug(currentConfig.couple.myName);
     const slug2 = sanitizeSlug(currentConfig.couple.herName);
-    const cleanUrl = `https://nossoamor.digital/${slug1}-e-${slug2}`;
+    const cleanUrl = `${window.location.origin}/p/${slug1}-e-${slug2}`;
     if (modalGeneratedUrl) modalGeneratedUrl.value = cleanUrl;
 
     // Desenha o QR Code ilustrativo
@@ -774,6 +774,33 @@ function initModalCheckout() {
             btnCopyPix.style.background = "";
           }, 2000);
         });
+      }
+    });
+  }
+
+  // Pagamento real: o servidor calcula o preço e devolve a URL oficial.
+  const payBtn = document.getElementById("btn-pay-pagbank");
+  if (payBtn) {
+    payBtn.addEventListener("click", async () => {
+      if (payBtn.disabled) return;
+      payBtn.disabled = true;
+      const previous = payBtn.textContent;
+      payBtn.textContent = "Preparando pagamento...";
+      try {
+        const response = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan: selectedPlanKey, config: currentConfig }),
+        });
+        const result = await response.json();
+        if (!response.ok || !result.checkout_url) {
+          throw new Error(result.error || "Não foi possível iniciar o pagamento");
+        }
+        window.location.assign(result.checkout_url);
+      } catch (error) {
+        alert(error.message || "Falha ao iniciar o pagamento");
+        payBtn.disabled = false;
+        payBtn.textContent = previous;
       }
     });
   }
